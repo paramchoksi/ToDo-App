@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock title %}
+
+{% block body %}
+
+  <div class="container my-4">
+    <h3> Add New ToDo</h3>
+    <form action="/" method='POST'>
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" name="title" id="title" aria-describedby="emailHelp"
+          placeholder="Enter your todo title">
+      </div>
+      <div class="form-group">
+        <label for="desc">Description</label>
+        <input type="text" class="form-control" name="desc" id="desc" placeholder="Enter your todo Description">
+      </div>
+      <button type="submit" class="btn btn-dark">Submit</button>
+    </form>
+  </div>
+
+  <div class="container my-4">
+    <h3> My ToDos</h3>
+
+    
+
+    {% if allToDo|length == 0 %}
+      <div class="alert alert-dark" role="alert">
+        No Records Found. Enter you ToDo now!
+      </div>
+    {% else %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">SrNo</th>
+          <th scope="col">Title</th>
+          <th scope="col">Description</th>
+          <th scope="col">Time</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for todo in allToDo %}
+        <tr>
+          <th scope="col">{{loop.index}}</th>
+          <td>{{todo.title}}</td>
+          <td>{{todo.desc}}</td>
+          <td>{{todo.time}}</td>
+          <td>
+            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+              <a href="update/{{todo.sno}}" type="button" class="btn btn-outline-dark btn-sm">Update</button>
+              <a href="delete/{{todo.sno}}" type="button" class="btn btn-outline-dark btn-sm">Delete</button>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>  
+    </table>
+    {% endif %}
+
+
+  </div>
+
+{% endblock body %}
